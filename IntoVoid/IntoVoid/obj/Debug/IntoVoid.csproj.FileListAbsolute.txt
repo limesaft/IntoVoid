@@ -1,0 +1,7 @@
+C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\bin\Debug\IntoVoid.exe.config
+C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\bin\Debug\IntoVoid.exe
+C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\bin\Debug\IntoVoid.pdb
+C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csprojAssemblyReference.cache
+C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csproj.CoreCompileInputs.cache
+C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\obj\Debug\IntoVoid.exe
+C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\obj\Debug\IntoVoid.pdb

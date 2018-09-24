@@ -11,34 +11,30 @@ namespace IntoVoid
         private int currentLevel;
         private bool ifFightOn = true;
         private string[] EnemyScreen;
-
+        private List<string> enemyScreenList = new List<string>();
 
         private int height = 0;
         private int width = 0;
         private int totalLength = 0;
-            
-        public FightOn(int level)
-        {
-            currentLevel = level;
-            EnemyScreen = System.IO.File.ReadAllLines(@"C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\EnemyScreens\EnemyLow.txt");
 
-            foreach (string item in EnemyScreen)
-            {
-                width = item.Count();
-                height++;
-            }
-            totalLength = EnemyScreen.Length;
-        }
+        public List<string> EnemyScreenList { get => enemyScreenList; set => enemyScreenList = value; }
 
-        public void FightOnEvent(Player player)
+        public FightOn() { }
+
+
+        public void FightOnEvent(Player player, int level)
         {
+            LoadEnemyScreen(level);
+
             while (ifFightOn)
             {
-                LoadEnemyScreen();
+                RenderFight();
+
                 RenderPlayer();
-                //Input
+                //Input here before logic
                 UpdateLogic();
 
+                //if enenyms dead fight = false;
                 ifFightOn = false;
                 Console.ReadKey();
             }
@@ -46,34 +42,45 @@ namespace IntoVoid
             player.CheckLevelUp();
         }
 
-        private void LoadEnemyScreen()
+        private void LoadEnemyScreen(int level)
         {
-            //Console.Clear();
-            EnemyScreen = System.IO.File.ReadAllLines(@"C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\EnemyScreens\EnemyLow.txt");
-            Console.WriteLine(height + " <h w> " + width + "totalLength > " + totalLength);
-            Console.ReadKey();
+            // Load the screen
+            Console.Clear();
+            ifFightOn = true;
+            currentLevel = level;
+            EnemyScreenList.Clear();
+
+            //EnemyScreen = System.IO.File.ReadAllLines(@"C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\EnemyScreens\EnemyLow.txt");
+
+            EnemyScreen = System.IO.File.ReadAllLines(@"C:\Users\limesaft\Documents\Visual Studio 2017\Projects\IntoVoidRPGGame\IntoVoid\IntoVoid\IntoVoid\EnemyScreens\EnemyLow.txt");
+
+            foreach (string item in EnemyScreen)
+            {
+                foreach (char character in item)
+                {
+                    EnemyScreenList.Add(character.ToString());
+                }
+
+                width = item.Count();
+                height++;
+            }
+
+            totalLength = EnemyScreenList.Count();
+        }
+
+        private void RenderFight()
+        {
             for (int i = 0; i < height * width; ++i)
             {
-                Console.WriteLine("jo");
                 // newlines on the edges
                 if (i % width == width - 1 && i != 0)
                 {
-                    Console.WriteLine(EnemyScreen[i]);
+                    Console.WriteLine(EnemyScreenList[i]);
                 }
 
                 else
                 {
-                    if (EnemyScreen[i] == "@")
-                    {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.Write(EnemyScreen[i]);
-                    }
-
-                    else
-                    {
-                        Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(EnemyScreen[i]);
-                    }
+                    Console.Write(EnemyScreenList[i]);
                 }
             }
         }

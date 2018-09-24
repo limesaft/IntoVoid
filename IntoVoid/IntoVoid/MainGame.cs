@@ -34,14 +34,17 @@ namespace IntoVoid
 
                 // Check if new level
                 board.CheckIfGoal();
+
+                // Check if found an enemy
                 ifFightOn = board.CheckIfEnemy();
 
                 if (ifFightOn)
                 {
-                    FightOn fightOn = new FightOn(board.GetLevel());
-                    fightOn.FightOnEvent(player);
+                    FightOn fightOn = new FightOn();
+                    fightOn.FightOnEvent(player, board.GetLevel());
 
                     ifFightOn = false;
+
                 }
 
                 // For testing stuff can be removed later on

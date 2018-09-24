@@ -33,8 +33,11 @@ namespace IntoVoid
             width = 0;
             totalLength = 0;
             TheBoardList.Clear();
- 
-            BoardList = System.IO.File.ReadAllLines(@"C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\Levels\level" + level.ToString() +".txt");
+            string path = AppDomain.CurrentDomain.BaseDirectory;
+            Console.WriteLine(path);
+
+            //BoardList = System.IO.File.ReadAllLines(@"C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\Levels\level" + level.ToString() +".txt");
+            BoardList = System.IO.File.ReadAllLines(@"C: \Users\limesaft\Documents\Visual Studio 2017\Projects\IntoVoidRPGGame\IntoVoid\IntoVoid\IntoVoid\Levels\level" + level.ToString() + ".txt");
 
             int x = 0;
 
@@ -122,8 +125,17 @@ namespace IntoVoid
         // Check if enemy
         public bool CheckIfEnemy()
         {
-            return playerPos == enemyPos ? true : false;
+            if (playerPos == enemyPos)
+            {
+                enemyPos = 0;
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
+
         public int GetLevel()
         {
             return level;

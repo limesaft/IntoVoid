@@ -17,20 +17,21 @@ namespace IntoVoid
             bool ifFightOn = false;
 
             board.LoadLevel();
+            //Console.CursorVisible = false;
 
             //bool fight = false;
             while (ifGameOn) 
             {
                 // render the map
-                Console.Clear();
+                //Console.Clear();
                 board.RenderBoard();
-                board.WritePlayerPos();
+                //board.WritePlayerPos();
 
 
                 // player can move
-                char input = Console.ReadKey().KeyChar;
+                char input = Console.ReadKey(true).KeyChar;
                 Console.WriteLine();
-                board.TryMovePlayer(input.ToString());
+                board.TryMovePlayer(input);
 
                 // Check if new level
                 board.CheckIfGoal();
@@ -44,12 +45,9 @@ namespace IntoVoid
                     fightOn.FightOnEvent(player, board.GetLevel());
 
                     ifFightOn = false;
-
+                    board.RenderBoardAfterFight();
                 }
-
                 // For testing stuff can be removed later on
-                board.WritePlayerPos();
-
             }
 
             // Suspend the screen.  

@@ -19,3 +19,10 @@ C:\Users\limesaft\Documents\Visual Studio 2017\Projects\IntoVoidRPGGame\IntoVoid
 C:\Users\limesaft\Documents\Visual Studio 2017\Projects\IntoVoidRPGGame\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csproj.CoreCompileInputs.cache
 C:\Users\limesaft\Documents\Visual Studio 2017\Projects\IntoVoidRPGGame\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.exe
 C:\Users\limesaft\Documents\Visual Studio 2017\Projects\IntoVoidRPGGame\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.pdb
+C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\bin\Debug\IntoVoid.exe.config
+C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\bin\Debug\IntoVoid.exe
+C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\bin\Debug\IntoVoid.pdb
+C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csprojAssemblyReference.cache
+C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csproj.CoreCompileInputs.cache
+C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.exe
+C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.pdb

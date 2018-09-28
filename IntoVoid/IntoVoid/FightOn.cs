@@ -11,13 +11,26 @@ namespace IntoVoid
         private int currentLevel;
         private bool ifFightOn = true;
         private string[] EnemyScreen;
-        private List<string> enemyScreenList = new List<string>();
+        public List<string> EnemyScreenList { get => _enemyScreenList; set => _enemyScreenList = value; }
 
-        private int height = 0;
-        private int width = 0;
-        private int totalLength = 0;
+        private char[] PrintPlayerScreen;
+        private string[] OrginalPlayerScreen;
 
-        public List<string> EnemyScreenList { get => enemyScreenList; set => enemyScreenList = value; }
+        private List<string> _enemyScreenList = new List<string>();
+
+        private int heightES = 0;
+        private int widthES = 0;
+        private int totalLengthES = 0;
+
+        private int widthAB = 0;
+        private int heightAB = 0;
+        private int totalLengthPlayerAB = 0;
+
+        // position for actionbar,
+        private int posHp = 0;
+        private int posAttack = 0;
+        private int posXpLeft = 0;
+        private int posCrystals = 0;
 
         public FightOn() { }
 
@@ -25,12 +38,13 @@ namespace IntoVoid
         public void FightOnEvent(Player player, int level)
         {
             LoadEnemyScreen(level);
+            RenderEnemyScreen();
+            LoadPlayerActionBar();
 
             while (ifFightOn)
             {
-                RenderFight();
+                RenderPlayerActionBar(player);
 
-                RenderPlayer();
                 //Input here before logic
                 UpdateLogic();
 
@@ -38,8 +52,8 @@ namespace IntoVoid
                 ifFightOn = false;
                 Console.ReadKey();
             }
-
-            player.CheckLevelUp();
+            // enemy worth in XP;
+            player.CheckLevelUp(5);
         }
 
         private void LoadEnemyScreen(int level)
@@ -50,30 +64,29 @@ namespace IntoVoid
             currentLevel = level;
             EnemyScreenList.Clear();
 
-            //EnemyScreen = System.IO.File.ReadAllLines(@"C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\EnemyScreens\EnemyLow.txt");
-
-            EnemyScreen = System.IO.File.ReadAllLines(@"C:\Users\limesaft\Documents\Visual Studio 2017\Projects\IntoVoidRPGGame\IntoVoid\IntoVoid\IntoVoid\EnemyScreens\EnemyLow.txt");
+            EnemyScreen = System.IO.File.ReadAllLines(@"..\..\EnemyScreens\EnemyLow.txt");
 
             foreach (string item in EnemyScreen)
             {
                 foreach (char character in item)
                 {
                     EnemyScreenList.Add(character.ToString());
+                    totalLengthES++;
                 }
 
-                width = item.Count();
-                height++;
+                widthES = item.Count();
+                heightES++;
             }
 
-            totalLength = EnemyScreenList.Count();
+            totalLengthES = EnemyScreenList.Count();
         }
 
-        private void RenderFight()
+        private void RenderEnemyScreen()
         {
-            for (int i = 0; i < height * width; ++i)
+            for (int i = 0; i < heightES * widthES; ++i)
             {
                 // newlines on the edges
-                if (i % width == width - 1 && i != 0)
+                if (i % widthES == widthES - 1 && i != 0)
                 {
                     Console.WriteLine(EnemyScreenList[i]);
                 }
@@ -85,10 +98,107 @@ namespace IntoVoid
             }
         }
 
-        private void RenderPlayer()
+        public void LoadPlayerActionBar()
+        {
+            OrginalPlayerScreen = System.IO.File.ReadAllLines(@"..\..\Player\PlayerActionBar.txt");
+            PrintPlayerScreen = new char[OrginalPlayerScreen.Count() * OrginalPlayerScreen[1].Length];
+
+            foreach (string item in OrginalPlayerScreen)
+            {
+                foreach (char character in item)
+                {
+                    if (character == '1')
+                    {
+                        posHp = totalLengthPlayerAB;
+                    }
+                    if (character == '2')
+                    {
+                        posAttack = totalLengthPlayerAB;
+                    }
+                    if (character == '3')
+                    {
+                        posCrystals = totalLengthPlayerAB;
+                    }
+
+                    if (character == '4')
+                    {
+                        posXpLeft = totalLengthPlayerAB;
+                    }        
+
+
+                    PrintPlayerScreen[totalLengthPlayerAB] = character;
+                    totalLengthPlayerAB++;
+                }
+            }
+            heightAB = OrginalPlayerScreen.Count();
+            widthAB = OrginalPlayerScreen[1].Length;
+        }
+
+        private void RenderPlayerActionBar(Player player)
         {
 
+            for (int i = 0; i < heightAB * widthAB; ++i)
+            {
+                // newlines on the edges
+                if (i % widthAB == widthAB - 1 && i != 0)
+                {
+                    Console.WriteLine(PrintPlayerScreen[i]);
+                }
+
+                else
+                {
+                    if (i == posHp)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(player.GetHealPoints());
+
+                    }
+                    else if (i == posCrystals)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(player.GetAmountCrystals());
+                    }
+                    else if (i == posAttack)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(player.AttackPower);
+                    }
+                    else if (i == posXpLeft)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write(player.HowMuchXPToLevel());
+                    }
+
+
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(PrintPlayerScreen[i]);
+                    }
+
+                }
+            }
+            Console.WriteLine("\n A = Attack, R = Run");
+
         }
+
+        /*
+        oldPlayerPosX = oldPlayerPos % width;
+        oldPlayerPosY = oldPlayerPos / width;
+        Console.SetCursorPosition(oldPlayerPosX, oldPlayerPosY);
+        Console.WriteLine(' ');
+        Console.SetCursorPosition(playerX, playerY);
+
+        playerX = playerPos % width;
+        playerY = playerPos / width;
+        Console.SetCursorPosition(playerX, playerY);
+        Console.WriteLine('@');
+        */
+        // se över totallength som playerposition X och y
+
+        //Console.SetCursorPosition(totalLength, totalLength);
+        //Console.WriteLine("lastet");
+
 
         private void UpdateLogic()
         {

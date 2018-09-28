@@ -44,6 +44,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="FightOn.cs" />
+    <Compile Include="GameBoard - Copy.cs" />
     <Compile Include="GameBoard.cs" />
     <Compile Include="MainGame.cs" />
     <Compile Include="Player.cs" />
@@ -57,6 +58,7 @@
     <Content Include="Levels\level0.txt" />
     <Content Include="Levels\level2.txt" />
     <Content Include="Levels\level1.txt" />
+    <Content Include="Player\PlayerActionBar.txt" />
   </ItemGroup>
   <ItemGroup />
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />

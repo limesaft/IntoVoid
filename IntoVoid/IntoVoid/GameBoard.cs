@@ -11,17 +11,25 @@ namespace IntoVoid
     {
         private int width;
         private int height;
-        private int totalLength;
+        private int playerX;
+        private int playerY;
+
+        private int mapSize;
         private int playerPos;
+        private int oldPlayerPos;
+        private int oldPlayerPosX;
+        private int oldPlayerPosY;
+
         private int playerGoal;
         private int enemyPos;
-        private int level = 0;
-        private List<string> theBoardList = new List<string>();
+        private int level = 1;
         private string[] BoardList;
+        private char[] OrginalGameMap;
+        private char[] PrintGameMap;
 
         //public int Width { get => width; set => width = value; }
         //public int Height { get => height; set => height = value; }
-        public List<string> TheBoardList { get => theBoardList; set => theBoardList = value; }
+        //public List<string> TheBoardList { get => theBoardList; set => theBoardList = value; }
 
         public GameBoard(){}
     
@@ -31,82 +39,123 @@ namespace IntoVoid
 
             height = 0;
             width = 0;
-            totalLength = 0;
-            TheBoardList.Clear();
-            string path = AppDomain.CurrentDomain.BaseDirectory;
-            Console.WriteLine(path);
+            mapSize = 0;
+            playerX = 0;
+            playerY = 0;
 
-            //BoardList = System.IO.File.ReadAllLines(@"C:\Users\etheologou\source\repos\IntoVoid\IntoVoid\Levels\level" + level.ToString() +".txt");
-            BoardList = System.IO.File.ReadAllLines(@"C: \Users\limesaft\Documents\Visual Studio 2017\Projects\IntoVoidRPGGame\IntoVoid\IntoVoid\IntoVoid\Levels\level" + level.ToString() + ".txt");
+            BoardList = System.IO.File.ReadAllLines(@"..\..\Levels\level" + level.ToString() + ".txt");
+            OrginalGameMap = new char[BoardList.Count()*BoardList[0].Length];
+            PrintGameMap = new char[BoardList.Count() * BoardList[0].Length]; 
 
-            int x = 0;
-
+            int currentPosition = 0;
             foreach (string item in BoardList)
             {
                 foreach (char character in item)
                 {
-                    TheBoardList.Add(character.ToString());
+
                     if (character.ToString() == "@")
                     {
-                        playerPos = x;
+                        playerPos = currentPosition;
+                        playerY = height;
+                        
                     }
-                    if (character.ToString() == "\\")
+                    else
                     {
-                        playerGoal = x;
+                        if (character.ToString() == "\\")
+                        {
+                            playerGoal = currentPosition;
+                        }
+                        if (character.ToString() == "E")
+                        {
+                            enemyPos = currentPosition;
+                        }
+
+                        OrginalGameMap[currentPosition] = character;
+
                     }
-                    if (character.ToString() == "E")
-                    {
-                        enemyPos = x;
-                    }
-                    x++;
+
+                    currentPosition++;
                 }
 
                 height++;
                 width = item.Count();
-                totalLength = x;
+                mapSize = currentPosition;
+            }
+            for (int i = 0; i < height * width; ++i)
+            {
+                // newlines on the edges
+                if (i % width == width - 1 && i != 0)
+                {
+                    Console.WriteLine(OrginalGameMap[i]);
+                }
+
+                else
+                {
+                    if (i == playerPos)
+                    {
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write('@');
+                    }
+
+                    else
+                    {
+                        Console.ForegroundColor = ConsoleColor.White;
+                        Console.Write(OrginalGameMap[i]);
+                    }
+                }
             }
         }
 
         // Move logic
-        public void TryMovePlayer(string input)
+        public void TryMovePlayer(char input)
         {
-            if (input == "d")
+            oldPlayerPos = playerPos;
+
+            if (input == 'd')
             {
-                if (TheBoardList[playerPos + 1].ToString() != "#")
+                if (OrginalGameMap[playerPos + 1] != '#')
                 {
-                    TheBoardList[playerPos] = " ";
-                    TheBoardList[playerPos + 1] = "@";
+                    //Array.Copy(OrginalGameMap, PrintGameMap, mapSize);
+                    //OrginalGameMap[playerPos] = ' ';
+                    //OrginalGameMap[playerPos + 1] = '@';
                     playerPos++;
+                    //Console.WriteLine('@');
+
                 }
             }
 
-            if (input == "a")
+            if (input == 'a')
             {
-                if (TheBoardList[playerPos - 1].ToString() != "#")
+                if (OrginalGameMap[playerPos - 1] != '#')
                 {
-                    TheBoardList[playerPos] = " ";
-                    TheBoardList[playerPos - 1] = "@";
+                    //Array.Copy(OrginalGameMap, PrintGameMap, mapSize);
+                    //OrginalGameMap[playerPos] = ' ';
+                    //OrginalGameMap[playerPos - 1] = '@';
+                    //Console.SetCursorPosition(mapSize % height,x);
                     playerPos--;
                 }
             }
 
-            if (input == "w")
+            if (input == 'w')
             {
-                if (TheBoardList[playerPos - totalLength/height].ToString() != "#")
+                if (OrginalGameMap[playerPos - mapSize / height] != '#')
                 {
-                    TheBoardList[playerPos] = " ";
-                    TheBoardList[playerPos - totalLength / height] = "@";
-                    playerPos = playerPos - totalLength / height;
+                    //Array.Copy(OrginalGameMap, PrintGameMap, mapSize);
+                    //OrginalGameMap[playerPos] = ' ';
+                    //OrginalGameMap[playerPos - mapSize / height] = '@';
+                    playerPos = playerPos - mapSize / height;
                 }
             }
 
-            if (input == "s")
+            if (input == 's')
             {
-                if (TheBoardList[playerPos + totalLength / height].ToString() != "#")
+                if (OrginalGameMap[playerPos + mapSize / height] != '#')
                 {
-                    TheBoardList[playerPos] = " ";
-                    TheBoardList[playerPos + totalLength / height] = "@";
-                    playerPos = playerPos + totalLength / height;
+                    //Array.Copy(OrginalGameMap, PrintGameMap, mapSize);
+                    //OrginalGameMap[playerPos] = ' ';
+                    //OrginalGameMap[playerPos + mapSize / height] = '@';
+
+                    playerPos = playerPos + mapSize / height;
                 }
             }
         }
@@ -150,30 +199,57 @@ namespace IntoVoid
         // Rending the board
         public void RenderBoard()
         {
-            for(int i = 0; i < height*width; ++i)
+            //
+
+            //Array.Copy(OrginalGameMap, PrintGameMap, mapSize);
+            /*
+            Console.WriteLine(mapSize);
+            Console.WriteLine(width);
+            Console.WriteLine("PosX: " + playerPos % width);
+            Console.WriteLine("PosY: " + playerPos / width);
+            */
+            //Console.WriteLine("\n w = up, s = down, a = left, d = right");
+
+            oldPlayerPosX = oldPlayerPos % width;
+            oldPlayerPosY = oldPlayerPos / width;
+            Console.SetCursorPosition(oldPlayerPosX, oldPlayerPosY);
+            Console.WriteLine(' ');
+            Console.SetCursorPosition(playerX, playerY);
+
+            playerX = playerPos % width;
+            playerY = playerPos / width;
+            Console.SetCursorPosition(playerX, playerY);
+            Console.WriteLine('@');
+
+        }
+
+        public void RenderBoardAfterFight()
+        {
+            Console.Clear();
+
+            for (int i = 0; i < height * width; ++i)
             {
                 // newlines on the edges
-                if (i % width == width-1 && i != 0)
+                if (i % width == width - 1 && i != 0)
                 {
-                    Console.WriteLine(TheBoardList[i]);
+                    Console.WriteLine(OrginalGameMap[i]);
                 }
 
                 else
                 {
-                    if(TheBoardList[i] == "@")
+                    if (i == playerPos)
                     {
-                        Console.ForegroundColor = ConsoleColor.Cyan;
-                        Console.Write(TheBoardList[i]);
+                        Console.ForegroundColor = ConsoleColor.Red;
+                        Console.Write('@');
                     }
 
                     else
                     {
                         Console.ForegroundColor = ConsoleColor.White;
-                        Console.Write(TheBoardList[i]);
+                        Console.Write(OrginalGameMap[i]);
                     }
                 }
             }
-            Console.WriteLine("\n w = up, s = down, a = left, d = right");
         }
     }
 }

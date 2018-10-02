@@ -219,6 +219,9 @@ namespace IntoVoid
             playerX = playerPos % width;
             playerY = playerPos / width;
             Console.SetCursorPosition(playerX, playerY);
+
+            //play color set to red
+            Console.ForegroundColor = ConsoleColor.Red;
             Console.WriteLine('@');
 
         }

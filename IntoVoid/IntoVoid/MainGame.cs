@@ -17,7 +17,7 @@ namespace IntoVoid
             bool ifFightOn = false;
 
             board.LoadLevel();
-            //Console.CursorVisible = false;
+            Console.CursorVisible = false;
 
             //bool fight = false;
             while (ifGameOn) 
@@ -28,8 +28,8 @@ namespace IntoVoid
                 //board.WritePlayerPos();
 
 
-                // player can move
-                char input = Console.ReadKey(true).KeyChar;
+                // player can move (Added support for caps lock characters)
+                char input = Console.ReadKey(true).KeyChar.ToString().ToLower()[0];
                 Console.WriteLine();
                 board.TryMovePlayer(input);
 
@@ -47,9 +47,15 @@ namespace IntoVoid
                     ifFightOn = false;
                     board.RenderBoardAfterFight();
                 }
-                // For testing stuff can be removed later on
-            }
 
+                // For testing stuff can be removed later on
+                #if debug
+                    //code in this block will only be executed on debug and not release
+                #endif
+
+
+
+            }
             // Suspend the screen.  
             System.Console.ReadLine();
         }

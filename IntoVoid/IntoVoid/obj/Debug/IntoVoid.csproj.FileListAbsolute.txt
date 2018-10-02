@@ -26,3 +26,9 @@ C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\Int
 C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csproj.CoreCompileInputs.cache
 C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.exe
 C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.pdb
+D:\Projects\github\IntoVoid\IntoVoid\IntoVoid\bin\Debug\IntoVoid.exe.config
+D:\Projects\github\IntoVoid\IntoVoid\IntoVoid\bin\Debug\IntoVoid.exe
+D:\Projects\github\IntoVoid\IntoVoid\IntoVoid\bin\Debug\IntoVoid.pdb
+D:\Projects\github\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csproj.CoreCompileInputs.cache
+D:\Projects\github\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.exe
+D:\Projects\github\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.pdb

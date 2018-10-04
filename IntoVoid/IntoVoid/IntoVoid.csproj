@@ -43,12 +43,14 @@
     <Reference Include="System.Xml" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="FightOn.cs" />
-    <Compile Include="GameBoard - Copy.cs" />
-    <Compile Include="GameBoard.cs" />
+    <Compile Include="AbstractCasses\LivingObject.cs" />
+    <Compile Include="Enemy\EnemyFish.cs" />
+    <Compile Include="States\FightState.cs" />
+    <Compile Include="States\DungeonState.cs" />
     <Compile Include="MainGame.cs" />
-    <Compile Include="Player.cs" />
+    <Compile Include="Player\Player.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
+    <Compile Include="States\MainState.cs" />
   </ItemGroup>
   <ItemGroup>
     <None Include="App.config" />

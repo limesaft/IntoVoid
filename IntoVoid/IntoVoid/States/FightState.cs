@@ -12,32 +12,32 @@ namespace IntoVoid
         private bool ifFightOn = true;
         private string[] EnemyScreen;
         public List<string> EnemyScreenList { get => _enemyScreenList; set => _enemyScreenList = value; }
+        public int WidthActionBar { get => widthActionBar; set => widthActionBar = value; }
 
         private char[] PrintPlayerScreen;
         private string[] OrginalPlayerScreen;
 
         private List<string> _enemyScreenList = new List<string>();
 
-        private int heightES = 0;
-        private int widthES = 0;
-        private int totalLengthES = 0;
+        private int heightOnEnemyScreen = 0;
+        private int widthOnEnemyScreen = 0;
+       // private int totalLengthES = 0;
 
-        private int widthAB = 0;
-        private int heightAB = 0;
+        private int widthActionBar = 0;
+        private int heightActionBar = 0;
         private int totalLengthPlayerAB = 0;
 
         // position for actionbar,
-        private int posHp = 0;
-        private int posAttack = 0;
-        private int posXpLeft = 0;
-        private int posCrystals = 0;
+        private int posHp = 113;
+        private int posAttack = 135;
+        private int posXpLeft = 189;
+        private int posCrystals = 268;
 
         public FightState() { }
 
-
         public void FightOnEvent(Player player, int level)
         {
-            LoadEnemyScreen(level);
+            LoadEnemy(level);
             RenderEnemyScreen();
             LoadPlayerActionBar();
 
@@ -45,25 +45,22 @@ namespace IntoVoid
             {
                 RenderPlayerActionBar(player);
 
-                //Input here before logic
-                //UpdateLogic(); TOODO
-
                 //if enenyms dead fight = false;
                 ifFightOn = false;
                 Console.ReadKey();
             }
             // enemy worth in XP;
-            player.CheckLevelUp(5);
+            player.CheckLevelUp(1);
         }
 
-        private void LoadEnemyScreen(int level)
+        private void LoadEnemy(int level)
         {
-            // Load the screen
-            Console.Clear();
-            ifFightOn = true;
-            currentLevel = level;
-            EnemyScreenList.Clear();
+            CleanBeforeFight(level);
+            LoadEnemyScreen();
+        }
 
+        private void LoadEnemyScreen()
+        {
             EnemyScreen = System.IO.File.ReadAllLines(@"..\..\EnemyScreens\EnemyLow.txt");
 
             foreach (string item in EnemyScreen)
@@ -71,22 +68,30 @@ namespace IntoVoid
                 foreach (char character in item)
                 {
                     EnemyScreenList.Add(character.ToString());
-                    totalLengthES++;
+                    //    totalLengthES++;
                 }
 
-                widthES = item.Count();
-                heightES++;
+                widthOnEnemyScreen = item.Count();
+                heightOnEnemyScreen++;
             }
+        }
 
-            totalLengthES = EnemyScreenList.Count();
+        private void CleanBeforeFight(int level)
+        {
+            Console.Clear();
+            ifFightOn = true;
+            currentLevel = level;
+            EnemyScreenList.Clear();
+            heightOnEnemyScreen = 0;
+            totalLengthPlayerAB = 0;
         }
 
         private void RenderEnemyScreen()
         {
-            for (int i = 0; i < heightES * widthES; ++i)
+            for (int i = 0; i < heightOnEnemyScreen * widthOnEnemyScreen; ++i)
             {
                 // newlines on the edges
-                if (i % widthES == widthES - 1 && i != 0)
+                if (i % widthOnEnemyScreen == widthOnEnemyScreen -1 && i != 0)
                 {
                     Console.WriteLine(EnemyScreenList[i]);
                 }
@@ -103,42 +108,25 @@ namespace IntoVoid
             OrginalPlayerScreen = System.IO.File.ReadAllLines(@"..\..\Player\PlayerActionBar.txt");
             PrintPlayerScreen = new char[OrginalPlayerScreen.Count() * OrginalPlayerScreen[1].Length];
 
+            // TODO can change to fixed locations. 
             foreach (string item in OrginalPlayerScreen)
             {
                 foreach (char character in item)
                 {
-                    if (character == '1')
-                    {
-                        posHp = totalLengthPlayerAB;
-                    }
-                    if (character == '2')
-                    {
-                        posAttack = totalLengthPlayerAB;
-                    }
-                    if (character == '3')
-                    {
-                        posCrystals = totalLengthPlayerAB;
-                    }
-
-                    if (character == '4')
-                    {
-                        posXpLeft = totalLengthPlayerAB;
-                    }        
-
                     PrintPlayerScreen[totalLengthPlayerAB] = character;
                     totalLengthPlayerAB++;
                 }
             }
-            heightAB = OrginalPlayerScreen.Count();
-            widthAB = OrginalPlayerScreen[1].Length;
+            heightActionBar = OrginalPlayerScreen.Count();
+            WidthActionBar = OrginalPlayerScreen[1].Length;
         }
 
         private void RenderPlayerActionBar(Player player)
         {
-            for (int i = 0; i < heightAB * widthAB; ++i)
+            for (int i = 0; i < heightActionBar * WidthActionBar; ++i)
             {
                 // newlines on the edges
-                if (i % widthAB == widthAB - 1 && i != 0)
+                if (i % WidthActionBar == WidthActionBar - 1 && i != 0)
                 {
                     Console.WriteLine(PrintPlayerScreen[i]);
                 }
@@ -179,7 +167,6 @@ namespace IntoVoid
             Console.WriteLine("\n A = Attack, R = Run");
             char input = Console.ReadKey(true).KeyChar;
             UpdateLogic(input);
-
         }
 
         private void UpdateLogic(char input)
@@ -194,23 +181,9 @@ namespace IntoVoid
 
             }
         }
+        private void CheckIfWinning()
+        {
+
+        }
     }
 }
-
-
-/*
-     oldPlayerPosX = oldPlayerPos % width;
-     oldPlayerPosY = oldPlayerPos / width;
-     Console.SetCursorPosition(oldPlayerPosX, oldPlayerPosY);
-     Console.WriteLine(' ');
-     Console.SetCursorPosition(playerX, playerY);
-
-     playerX = playerPos % width;
-     playerY = playerPos / width;
-     Console.SetCursorPosition(playerX, playerY);
-     Console.WriteLine('@');
-     */
-// se över totallength som playerposition X och y
-
-//Console.SetCursorPosition(totalLength, totalLength);
-//Console.WriteLine("lastet");

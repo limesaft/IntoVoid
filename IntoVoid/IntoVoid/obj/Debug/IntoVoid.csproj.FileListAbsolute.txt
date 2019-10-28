@@ -26,3 +26,14 @@ C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\Int
 C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csproj.CoreCompileInputs.cache
 C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.exe
 C:\Users\etheologou\source\repos\IntoVoid-master\IntoVoid\IntoVoid\obj\Debug\IntoVoid.pdb
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\bin\Debug\IntoVoid.exe.config
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\bin\Debug\IntoVoid.exe
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\bin\Debug\IntoVoid.pdb
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csprojAssemblyReference.cache
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.exe
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.pdb
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\bin\Debug\Castle.Core.dll
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\bin\Debug\Castle.Windsor.dll
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\bin\Debug\Castle.Core.xml
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\bin\Debug\Castle.Windsor.xml
+D:\Programmering\GitHub\IntoTheVoid\IntoVoid\IntoVoid\IntoVoid\obj\Debug\IntoVoid.csproj.CopyComplete

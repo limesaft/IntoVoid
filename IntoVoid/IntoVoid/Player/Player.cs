@@ -7,10 +7,17 @@ using System.Threading.Tasks;
 
 namespace IntoVoid
 {
-    class Player : LivingObject
+    class Player 
     {
         private int PlayerLevel = 1;
         private int xp = 0;
+        private int _healthPoints;
+        private int _attackPower;
+        private int _crystals;
+
+        public int AttackPower { get => _attackPower; set => _attackPower = value; }
+        public int HealthPoints { get => _healthPoints; set => _healthPoints = value; }
+        public int Crystals { get => _crystals; set => _crystals = value; }
 
         public Player() {
             this.HealthPoints = 9;
@@ -42,6 +49,15 @@ namespace IntoVoid
         public int HowMuchXPToLevel()
         {
             return PlayerLevel * 5 - xp;
+        }
+        public int GetHealPoints()
+        {
+            return _healthPoints;
+        }
+
+        public void SetHealPoints(int value)
+        {
+            _healthPoints = _healthPoints - value;
         }
     }
 }

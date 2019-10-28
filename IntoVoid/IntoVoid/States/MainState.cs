@@ -1,50 +1,29 @@
-﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
-
+﻿
 namespace IntoVoid.States
 {
     class MainState
     {
+        private readonly bool ifGameOn = true;
+
         public void Run()
         {
             var board = new GameBoard();
             Player player = new Player();
-
-            bool ifGameOn = true;
-            bool ifFightOn = false;
+            FightState fightOn = new FightState();
 
             board.LoadLevel();
             //Console.CursorVisible = false;
 
             while (ifGameOn)
             {
-                // render the map
-                //Console.Clear();
-                board.RenderBoard();
-                //board.WritePlayerPos();
+                board.RenderBoardChanges();
+                board.TryMovePlayer();
 
-                // player can move
-                char input = Console.ReadKey(true).KeyChar;
-                Console.WriteLine();
-                board.TryMovePlayer(input);
-
-                // Check if new level
-                board.CheckIfGoal();
-
-                // Check if found an enemy
-                ifFightOn = board.CheckIfEnemy();
-
-                if (ifFightOn)
+                if (board.CheckIfEnemy())
                 {
-                    FightState fightOn = new FightState();
                     fightOn.FightOnEvent(player, board.GetLevel());
-
-                    ifFightOn = false;
                     board.RenderBoardAfterFight();
-                }
+                } 
             }
 
             // Suspend the screen when game is over

@@ -1,9 +1,6 @@
 ﻿using IntoVoid.States;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
+using Castle.MicroKernel.Registration;
+using Castle.Windsor;
 
 namespace IntoVoid
 {
@@ -11,6 +8,9 @@ namespace IntoVoid
     {
         static void Main(string[] args)
         {
+           // var container = new WindsorContainer();
+           // container.Register(Component.For<>)
+
             MainState main = new MainState();
             main.Run();
         }

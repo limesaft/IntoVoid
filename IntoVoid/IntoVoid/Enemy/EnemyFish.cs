@@ -7,7 +7,7 @@ using System.Threading.Tasks;
 
 namespace IntoVoid.Enemy
 {
-    class EnemyFish : LivingObject
+    class EnemyFish : Enemies
     {
         EnemyFish()
         {
